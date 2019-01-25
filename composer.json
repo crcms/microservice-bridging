@@ -22,6 +22,7 @@
   "type": "library",
   "require": {
     "php": "^7.2.4",
+    "ext-json": "*",
     "illuminate/encryption": "5.7.*"
   },
   "require-dev": {

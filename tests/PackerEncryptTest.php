@@ -4,9 +4,10 @@ namespace CrCms\Microservice\Bridging\Tests;
 
 use CrCms\Microservice\Bridging\DataPacker;
 use CrCms\Microservice\Bridging\Packer\JsonPacker;
+use Illuminate\Encryption\Encrypter;
 use PHPUnit\Framework\TestCase;
 
-class PackerTest extends TestCase
+class PackerEncryptTest extends TestCase
 {
     /**
      * @var DataPacker
@@ -17,7 +18,10 @@ class PackerTest extends TestCase
     {
         parent::setUp();
 
-        $this->packer = new DataPacker(new JsonPacker());
+        $key = 'base64:Bey9po1NfR9CHY65KxPqQIemqvhDfHLNTFeffewn3pY=';
+        $key = base64_decode(substr($key, 7));
+
+        $this->packer = new DataPacker(new JsonPacker(),new Encrypter($key,'AES-256-CBC'));
     }
 
     public function testEmptyValuePack()
