@@ -23,7 +23,7 @@
   "require": {
     "php": "^7.2.4",
     "ext-json": "*",
-    "illuminate/encryption": "5.7.*"
+    "illuminate/encryption": "5.7.* | 5.8.*"
   },
   "require-dev": {
     "mockery/mockery": "^1.2",
