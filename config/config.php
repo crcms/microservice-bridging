@@ -1,5 +1,13 @@
 <?php
 
 return [
-    'encryption' => true,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Whether to enable microservice data encryption and decryption
+    |--------------------------------------------------------------------------
+    |
+    */
+
+    'encryption' => env('APP_ENCRYPTION', false),
 ];
