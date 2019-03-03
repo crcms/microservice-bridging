@@ -24,7 +24,8 @@
     "php": "^7.2.4",
     "ext-json": "*",
     "illuminate/support": "^5.7",
-    "illuminate/encryption": "^5.7"
+    "illuminate/encryption": "^5.7",
+    "vlucas/phpdotenv": "^2.2 | ^3.3"
   },
   "require-dev": {
     "illuminate/container": "^5.7",
