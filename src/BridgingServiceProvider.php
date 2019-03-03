@@ -4,6 +4,7 @@ namespace CrCms\Microservice\Bridging;
 
 use CrCms\Microservice\Bridging\Packer\JsonPacker;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Lumen\Application;
 
 class BridgingServiceProvider extends ServiceProvider
 {
@@ -20,7 +21,21 @@ class BridgingServiceProvider extends ServiceProvider
     /**
      * @var string
      */
-    protected $basePath = __DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR;
+    protected $packagePath = __DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR;
+
+    /**
+     * Boot
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        if (!$this->isLumen()) {
+            $this->publishes([
+                $this->packagePath.'config/config.php' => $this->app->configPath($this->name.'.php'),
+            ]);
+        }
+    }
 
     /**
      * register
@@ -29,7 +44,11 @@ class BridgingServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom($this->basePath.'config/config.php', 'bridging');
+        if ($this->isLumen()) {
+            $this->app->configure($this->name);
+        }
+
+        $this->mergeConfigFrom($this->packagePath.'config/config.php', 'bridging');
 
         $this->registerAlias();
 
@@ -55,6 +74,14 @@ class BridgingServiceProvider extends ServiceProvider
             $encryption = $app['config']->get('bridging.encryption');
             return new DataPacker(new JsonPacker, $encryption === true ? $app['encrypter'] : null);
         });
+    }
+
+    /**
+     * @return bool
+     */
+    protected function isLumen(): bool
+    {
+        return class_exists(Application::class) && $this->app instanceof Application;
     }
 
     /**
