@@ -64,6 +64,9 @@ class BridgingServiceProvider extends ServiceProvider
      */
     public function provides(): array
     {
-        return ['bridging.packer'];
+        return [
+            'bridging.packer',
+            DataPacker::class,
+        ];
     }
 }
