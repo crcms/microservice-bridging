@@ -72,7 +72,8 @@ class BridgingServiceProvider extends ServiceProvider
     {
         $this->app->singleton('bridging.packer', function ($app) {
             $encryption = $app['config']->get('bridging.encryption');
-            return new DataPacker(new JsonPacker, $encryption === true ? $app['encrypter'] : null);
+            $packer = $app['config']->get('bridging.packer');
+            return new DataPacker(PackerFactory::factory($packer), $encryption === true ? $app['encrypter'] : null);
         });
     }
 

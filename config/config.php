@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Whether to enable microservice data encryption and decryption
@@ -10,4 +9,14 @@ return [
     */
 
     'encryption' => env('APP_ENCRYPTION', false),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Default package driver settings
+    |--------------------------------------------------------------------------
+    | Allow json, msg
+    |
+    */
+
+    'packer' => 'json',
 ];
